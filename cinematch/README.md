@@ -1,4 +1,4 @@
-# CineMatch (Neatly Organized)
+# CineMatch 
 
 This version keeps the SAME site behavior and UI, but splits code into clean, recruiter-friendly files.
 
