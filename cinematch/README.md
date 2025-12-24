@@ -1,6 +1,6 @@
 # CineMatch 
 
-This version keeps the SAME site behavior and UI, but splits code into clean, recruiter-friendly files.
+
 
 ## Run
 1) Open `index.html` in your browser.
