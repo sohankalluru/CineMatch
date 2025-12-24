@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>CineMatch — Movie Recommendations</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="logo">🎬</div>
+      <div>
+        <h1>CineMatch</h1>
+        <p class="sub">Recommendations based on genres, ratings, age rating, and length</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Setup</h2>
+      <p class="muted">Paste your OMDb API key once. It will be stored in your browser (localStorage).</p>
+      <div class="row">
+        <label class="field">
+          <span>OMDb API Key</span>
+          <input id="apiKeyInput" placeholder="e.g., 123abc45" />
+        </label>
+        <button id="saveKeyBtn" class="btn primary">Save Key</button>
+        <button id="clearCacheBtn" class="btn">Clear Cache</button>
+      </div>
+      <div id="setupStatus" class="status"></div>
+    </section>
+
+    <section class="grid">
+      <section class="card">
+        <h2>Preferences</h2>
+
+        <div class="row wrap">
+          <label class="field">
+            <span>Genres (pick 1+)</span>
+            <select id="genreSelect" multiple size="8"></select>
+            <small class="muted">Tip: Ctrl/Cmd + click to select multiple.</small>
+          </label>
+
+          <div class="col">
+            <label class="field">
+              <span>Minimum IMDb Rating</span>
+              <input id="minRating" type="number" step="0.1" min="0" max="10" value="7.0" />
+            </label>
+
+            <label class="field">
+              <span>Age Rating</span>
+              <select id="ageRating">
+                <option value="ANY" selected>Any</option>
+                <option value="G">G</option>
+                <option value="PG">PG</option>
+                <option value="PG-13">PG-13</option>
+                <option value="R">R</option>
+                <option value="NC-17">NC-17</option>
+                <option value="TV-Y">TV-Y</option>
+                <option value="TV-G">TV-G</option>
+                <option value="TV-PG">TV-PG</option>
+                <option value="TV-14">TV-14</option>
+                <option value="TV-MA">TV-MA</option>
+                <option value="NOT-RATED">Not Rated / Unrated</option>
+              </select>
+              <small class="muted">OMDb uses “Rated” values (e.g., PG-13, TV-MA, Not Rated).</small>
+            </label>
+
+            <label class="field">
+              <span>Max Runtime (minutes)</span>
+              <input id="maxRuntime" type="number" min="30" max="400" value="160" />
+            </label>
+
+            <label class="field">
+              <span># of Results</span>
+              <input id="resultCount" type="number" min="5" max="50" value="12" />
+            </label>
+
+            <button id="recommendBtn" class="btn primary">Get Recommendations</button>
+          </div>
+        </div>
+
+        <div id="prefStatus" class="status"></div>
+      </section>
+
+      <section class="card">
+        <h2>Add Movies (optional)</h2>
+        <p class="muted">
+          Search OMDb, then add an IMDb ID to your personal list (stored locally in your browser).
+          This helps CineMatch “learn” your taste by expanding the pool.
+        </p>
+        <div class="row">
+          <label class="field grow">
+            <span>Search Title</span>
+            <input id="searchTitle" placeholder="e.g., Inception" />
+          </label>
+          <button id="searchBtn" class="btn">Search</button>
+        </div>
+
+        <div id="searchResults" class="list"></div>
+      </section>
+    </section>
+
+    <section class="card">
+      <div class="row between center">
+        <h2>Recommendations</h2>
+        <div class="row center">
+          <span class="pill" id="poolSizePill">Pool: —</span>
+          <span class="pill" id="cachedPill">Cached: —</span>
+        </div>
+      </div>
+
+      <div id="results" class="results"></div>
+    </section>
+
+    <footer class="footer">
+      <p class="muted">
+        Built with HTML/CSS/JS + OMDb. Recommendations are scored locally in your browser.
+      </p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
