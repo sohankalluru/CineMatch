@@ -1,5 +1,5 @@
 # CineMatch 
-
+A lightweight movie recommendation web app using the OMDb API.
 
 
 ## Run
