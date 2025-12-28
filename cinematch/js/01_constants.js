@@ -1,15 +1,51 @@
 /**
  * CineMatch Constants
- * -------------------
- * Central place for constant values so the rest of the code stays clean.
- * Recruiter-friendly: easy to find keys, defaults, starter IDs, etc.
  */
 window.CineMatch = window.CineMatch || {};
 CineMatch.CONSTANTS = {
+  // LocalStorage keys
   LS_KEY_API: "cinematch_api_key",
   LS_KEY_USER_IDS: "cinematch_user_ids",
   LS_KEY_CACHE: "cinematch_cache_v1",
+
+  // Stores discovered IMDb IDs by genre, so the pool grows over time and reduces API calls
+  // Format: { "CRIME": ["tt....", ...], "DRAMA": [...], ... }
+  LS_KEY_DISCOVERED: "cinematch_discovered_v1",
+
+  // UI paging
   SHOW_MORE_STEP: 12,
+
+  // ✅ Capacity target for the active pool (per selected genre set)
+  POOL_CAP: 250,
+
+  // ✅ Discovery settings (how aggressively we expand a genre pool per click)
+  // NOTE: each "detail fetch" is an OMDb call to getById() (the expensive part)
+  DISCOVERY_MAX_NEW_DETAILS: 260,
+  DISCOVERY_PAGES_PER_TERM: 5,
+
+  // Keyword seeds per genre (OMDb does not support pure "browse by genre")
+  GENRE_KEYWORDS: {
+    ACTION: ["action", "mission", "agent", "battle", "warrior"],
+    ADVENTURE: ["adventure", "journey", "quest", "treasure", "expedition"],
+    ANIMATION: ["animation", "animated", "pixar", "disney", "dreamworks"],
+    BIOGRAPHY: ["biography", "biopic", "true story", "life of"],
+    COMEDY: ["comedy", "funny", "vacation", "wedding", "party"],
+    CRIME: ["crime", "detective", "mafia", "heist", "gangster", "murder", "noir"],
+    DRAMA: ["drama", "family", "relationship", "life", "struggle"],
+    FAMILY: ["family", "kids", "friendship", "home"],
+    FANTASY: ["fantasy", "magic", "dragon", "wizard", "kingdom"],
+    HISTORY: ["history", "historical", "empire", "king", "queen"],
+    HORROR: ["horror", "haunted", "ghost", "demon", "curse"],
+    MUSIC: ["music", "band", "concert", "singer"],
+    MYSTERY: ["mystery", "case", "secret", "missing"],
+    ROMANCE: ["romance", "love", "valentine", "wedding"],
+    "SCI-FI": ["space", "alien", "future", "robot", "sci-fi"],
+    THRILLER: ["thriller", "kidnapping", "escape", "hostage"],
+    WAR: ["war", "soldier", "battle", "army"],
+    WESTERN: ["western", "cowboy", "outlaw", "ranch"]
+  },
+
+  // Curated starter IDs (still useful as a baseline + for caching)
   STARTER_IMDB_IDS: [
     "tt0111161","tt0068646","tt0468569","tt0137523","tt0109830",
     "tt0120737","tt1375666","tt0167260","tt0816692","tt0133093",
@@ -24,6 +60,8 @@ CineMatch.CONSTANTS = {
     "tt0266543","tt0090605","tt0110357","tt0103064","tt0095327",
     "tt0062622","tt0087843","tt0086190","tt0167404"
   ],
+
+  // Age rating ordering for comparisons
   MPAA_ORDER: ["G", "PG", "PG-13", "R", "NC-17"],
   TV_ORDER: ["TV-Y", "TV-G", "TV-PG", "TV-14", "TV-MA"]
 };
