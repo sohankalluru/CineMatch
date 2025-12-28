@@ -26,6 +26,23 @@ CineMatch.OMDb = (function () {
     return data.Search || [];
   }
 
+  /**
+   * ✅ NEW: Paged search for discovery.
+   * OMDb returns up to 10 results per page.
+   */
+  async function searchPaged(apiKey, query, page) {
+    const url =
+      `https://www.omdbapi.com/?apikey=${encodeURIComponent(apiKey)}` +
+      `&s=${encodeURIComponent(query)}&type=movie&page=${encodeURIComponent(page)}&r=json`;
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.Response === "False") return [];
+
+    return data.Search || [];
+  }
+
   async function warmCache(apiKey, ids, statusEl, pills) {
     const cache = CineMatch.Storage.loadCache();
 
@@ -46,5 +63,5 @@ CineMatch.OMDb = (function () {
     return cache;
   }
 
-  return { getById, searchByTitle, warmCache };
+  return { getById, searchByTitle, searchPaged, warmCache };
 })();
