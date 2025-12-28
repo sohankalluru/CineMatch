@@ -26,7 +26,22 @@ CineMatch.Storage = (function () {
     localStorage.setItem(C.LS_KEY_CACHE, JSON.stringify(cacheObj || {}));
   }
 
+  // ✅ NEW: discovered IMDb IDs by genre (so the pool grows over time)
+  function loadDiscovered() {
+    try { return JSON.parse(localStorage.getItem(C.LS_KEY_DISCOVERED) || "{}"); }
+    catch { return {}; }
+  }
+  function saveDiscovered(obj) {
+    localStorage.setItem(C.LS_KEY_DISCOVERED, JSON.stringify(obj || {}));
+  }
+
   function clearCache() { localStorage.removeItem(C.LS_KEY_CACHE); }
 
-  return { loadApiKey, saveApiKey, loadUserIds, saveUserIds, loadCache, saveCache, clearCache };
+  return {
+    loadApiKey, saveApiKey,
+    loadUserIds, saveUserIds,
+    loadCache, saveCache,
+    loadDiscovered, saveDiscovered,
+    clearCache
+  };
 })();
